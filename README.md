@@ -55,12 +55,13 @@ The primary (or only) Terraform configuration in a repo should be placed in the 
 ### Grouping Resources in Files
 Files are used to group a series of resources (or data sources, providers, etc.) together. While different situations
 call for different strategies in resource grouping, a good starting point is to place resource types with the same
-prefix in a single file.  Becuase plural filenames (ie: `modules.tf`, `variables.tf`, `locals.tf`) are already widely
+prefix in a single file.  Because plural filenames (ie: `modules.tf`, `variables.tf`, `locals.tf`) are already widely
 in inconsistent use, it is not advised to consider it significant.
 
 If more than one resource type exists in a file that all share a given prefix, a distinction can be made by appending
-an underscore to the filename. This retains expected compatiblility with shell filename completion and provides an easy
-visual indicator.
+an underscore to the filename. This ensures the filename reflects the contents, remains compatible with alphabetic
+sorting, grouping, and shell command completion, as well as provides a highly visible visual indicator that the
+file contains resources of more than one type.
 
 Example file contents:
 ```hcl
@@ -80,11 +81,12 @@ resource "aws_alb_listener" "dos" {
   ...
 }
 ```
-The above filename should be called `aws_alb_.tf`. This ensures the filename reflects the contents, and remains
-compatible with alphabetic sorting, grouping, and shell command completion
+The above filename should be called `aws_alb_.tf`.  If it only had `"aws_alb"` resource delcarations, it would be
+called `aws_alb.tf`.
 
 ## Module Paths
-The defacto standard location for modules which are exported is in the `/modules` path of the repo.
+The defacto standard location for modules which are exported is in the `/modules` path of the repo, ie: 
+`/modules/example_module`.
 
 ### Private Modules
 For private modules (modules which are used exclusively by a configuration and are sourced using the direct path
